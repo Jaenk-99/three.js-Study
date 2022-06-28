@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-zero.js
-one.js
+
+src/pages/one.js
