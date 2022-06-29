@@ -16,6 +16,7 @@ export default function Zero(){
   return(
     <>
       <Canvas>
+        <pointLight position={[10, 10, 10]} />
         <CoinMesh/>
       </Canvas>
     </>
