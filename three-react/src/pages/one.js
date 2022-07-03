@@ -1,24 +1,25 @@
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-export default function One() {
-  function CoinMesh() {
-    const mesh = useRef(null);
-    useFrame(() => (mesh.current.rotation.y = mesh.current.rotation.z += 0.01)); // #2
-    return (
-      <mesh ref={mesh} scale={1.5}>
-        <cylinderBufferGeometry args={[1, 1, 0.3, 50]} />
-        <meshLambertMaterial attach="material" color="#ff9800" />
-      </mesh>
-    );
-  }
-
+const Model = () => {
+  const gltf = useLoader(GLTFLoader, "/shiba/scene.glft");
   return (
     <>
-      <Canvas>
-        <pointLight position={[10, 10, 10]} />
-        <CoinMesh />
-      </Canvas>
+      <primitive object={gltf.scene} scale={0.4} />
     </>
+  );
+};
+
+export default function One() {
+  return (
+    <Canvas>
+      <Suspense fallback={null}>
+        <Model />
+        <OrbitControls />
+      </Suspense>
+    </Canvas>
   );
 }
