@@ -5,7 +5,7 @@ import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const Model = () => {
-  const gltf = useLoader(GLTFLoader, "/shiba/scene.glft");
+  const gltf = useLoader(GLTFLoader, "./shiba/scene.glft");
   return (
     <>
       <primitive object={gltf.scene} scale={0.4} />
