@@ -6,19 +6,25 @@
     <title>Three.js 2</title>
 
     <style>
-        body { margin: 0; }
-        canvas { display: block; }
+        body {
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
     </style>
 
 </head>
 
 <body>
-    
+
     </script>
 
     <script type="module">
         import * as THREE from "https://unpkg.com/three@0.126.1/build/three.module.js";
         import { GLTFLoader } from "https://unpkg.com/three@0.126.1/examples/jsm/loaders/GLTFLoader.js";
+        import { OrbitControls } from "https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js";
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -32,17 +38,19 @@
         scene.add(light);
 
         scene.background = new THREE.Color('gray')
-        camera.position.set(0,0,5);
+        camera.position.set(0, 0, 5);
 
         const loader = new GLTFLoader();
-        loader.load('cute_little_robot/scene.gltf', function(gltf){
+        loader.load('cute_little_robot/scene.gltf', function (gltf) {
             scene.add(gltf.scene);
 
-            function animate(){
+            const controls = new OrbitControls(camera, renderer.domElement);
+            controls.minDistance = 1;
+            controls.maxDistance = 500;
+
+            function animate() {
                 requestAnimationFrame(animate)
-                gltf.scene.rotation.x += 0.1;
-                gltf.scene.rotation.y += 0.1;
-                gltf.scene.rotation.z += 0.1;
+                controls.update();
                 renderer.render(scene, camera);
             }
 
